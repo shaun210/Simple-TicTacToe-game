@@ -1,10 +1,6 @@
 import random
 
 
-theBoard = {'7': ' ' , '8': ' ' , '9': ' ' ,
-            '4': ' ' , '5': ' ' , '6': ' ' ,
-            '1': ' ' , '2': ' ' , '3': ' ' }
-
 def printBoard(board):
     print(board['7'] + '|' + board['8'] + '|' + board['9'])
     print('-+-+-')
@@ -12,7 +8,7 @@ def printBoard(board):
     print('-+-+-')
     print(board['1'] + '|' + board['2'] + '|' + board['3'])
 
-def action(number,boar):
+def action(number,theBoard):
     if number == 'X':
         alternate = '0'
     elif number == '0':
@@ -20,31 +16,31 @@ def action(number,boar):
     
     for i in range(9):
         
-        kok = False
-        liki = False
-        while kok == False:
+        flag1 = False 
+        flag2 = False
+        while flag1 == False:
             print("enter a number from 1 to 9. Board is like a telephone dial")
             numI = input()          
-            if boar[numI] == ' ' and boar[numI] != alternate :
-                boar[numI] = number
-                kok = True
+            if theBoard[numI] == ' ' and theBoard[numI] != alternate :
+                theBoard[numI] = number
+                flag1 = True
                 
-                if checkWin(boar, number):
-                    return boar  
-                liki = False
-                while liki == False:
+                if checkWin(theBoard, number):
+                    return theBoard  
+                flag2 = False
+                while flag2 == False:
                     n = random.randint(1,9)
-                    if boar[str(n)] == ' ' and boar[str(n)] != number:
-                        boar[str(n)] = alternate
-                        liki = True
+                    if theBoard[str(n)] == ' ' and theBoard[str(n)] != number:
+                        theBoard[str(n)] = alternate
+                        flag2 = True
                         
             else:
                 print("invalid number")  
 
-            if checkWin(boar, number):
-                return boar  
-            printBoard(boar)
-    return boar 
+            if checkWin(theBoard, number):
+                return theBoard  
+            printBoard(theBoard)
+    return theBoard 
 
 
 def game(board):
@@ -57,7 +53,7 @@ def game(board):
     else:
         print("wrong input")  
 
-def checkWin(board, turn):
+def checkWin(theBoard, turn):
     if theBoard['7'] == theBoard['8'] == theBoard['9'] != ' ': # across the top
         printBoard(theBoard)
         print("\nGame Over.\n")                
@@ -101,7 +97,13 @@ def checkWin(board, turn):
     else:
         return False
 
+def main():
 
+    theBoard = {'7': ' ' , '8': ' ' , '9': ' ' ,
+                '4': ' ' , '5': ' ' , '6': ' ' ,
+                '1': ' ' , '2': ' ' , '3': ' ' }
 
+    game(theBoard)
 
-game(theBoard)
+if __name__ == "__main__":
+    main()
